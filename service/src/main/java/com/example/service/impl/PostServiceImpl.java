@@ -93,14 +93,18 @@ public class PostServiceImpl implements PostService {
         log.info("Fetching all posts from external API");
         return externalClient.getAllPosts()
                 .collectList()
-                .block();
+                .block()
+                .stream()
+                .map(this::toApiDtoFromIntegration)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Optional<PostDto> getExternalPostById(Integer id) {
         log.info("Fetching post with id {} from external API", id);
         return externalClient.getPostById(id)
-                .map(this::toDtoFromDomain);
+                .map(this::toApiDtoFromIntegration)
+                .blockOptional();
     }
 
     @Override
@@ -118,7 +122,7 @@ public class PostServiceImpl implements PostService {
                 .collectList()
                 .block()
                 .stream()
-                .map(this::toCommentDtoFromDomain)
+                .map(this::toApiCommentDtoFromIntegration)
                 .collect(Collectors.toList());
     }
 
@@ -132,7 +136,7 @@ public class PostServiceImpl implements PostService {
                 .build();
     }
 
-    private PostDto toDtoFromDomain(com.example.service.model.Post post) {
+    private PostDto toApiDtoFromIntegration(com.example.integration.dto.PostDto post) {
         return PostDto.builder()
                 .id(post.getId())
                 .userId(post.getUserId())
@@ -141,7 +145,7 @@ public class PostServiceImpl implements PostService {
                 .build();
     }
 
-    private CommentDto toCommentDtoFromDomain(com.example.service.model.Comment comment) {
+    private CommentDto toApiCommentDtoFromIntegration(com.example.integration.dto.CommentDto comment) {
         return CommentDto.builder()
                 .id(comment.getId())
                 .postId(comment.getPostId())

@@ -16,10 +16,11 @@
     <packaging>pom</packaging>
     
     <modules>
-        <module>api</module>
-        <module>service</module>
+        <module>api-model</module>
         <module>persistence</module>
         <module>integration</module>
+        <module>service</module>
+        <module>api</module>
     </modules>
 
     <properties>

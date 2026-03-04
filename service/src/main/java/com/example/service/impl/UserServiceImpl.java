@@ -47,7 +47,7 @@ public class UserServiceImpl implements UserService {
                 .collectList()
                 .block()
                 .stream()
-                .map(this::toDtoFromDomain)
+                .map(this::toDtoFromIntegration)
                 .collect(Collectors.toList());
     }
 
@@ -55,7 +55,8 @@ public class UserServiceImpl implements UserService {
     public Optional<UserDto> getExternalUserById(Integer id) {
         log.info("Fetching user with id {} from external API", id);
         return externalClient.getUserById(id)
-                .map(this::toDtoFromDomain);
+                .map(this::toDtoFromIntegration)
+                .blockOptional();
     }
 
     // Mapping methods
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
                 .build();
     }
 
-    private UserDto toDtoFromDomain(com.example.service.model.User user) {
+    private UserDto toDtoFromIntegration(com.example.integration.dto.UserDto user) {
         return UserDto.builder()
                 .id(user.getId())
                 .name(user.getName())

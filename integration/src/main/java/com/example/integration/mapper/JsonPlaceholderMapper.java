@@ -4,19 +4,19 @@ import com.example.integration.client.JsonPlaceholderClientImpl.CommentResponse;
 import com.example.integration.client.JsonPlaceholderClientImpl.PostRequest;
 import com.example.integration.client.JsonPlaceholderClientImpl.PostResponse;
 import com.example.integration.client.JsonPlaceholderClientImpl.UserResponse;
-import com.example.service.model.Comment;
-import com.example.service.model.Post;
-import com.example.service.model.User;
+import com.example.integration.dto.CommentDto;
+import com.example.integration.dto.PostDto;
+import com.example.integration.dto.UserDto;
 import org.springframework.stereotype.Component;
 
 /**
- * Mapper for converting between external API DTOs and domain models.
+ * Mapper for converting between external API DTOs and integration DTOs.
  */
 @Component
 public class JsonPlaceholderMapper {
 
-    public Post toPost(PostResponse response) {
-        return Post.builder()
+    public PostDto toPostDto(PostResponse response) {
+        return PostDto.builder()
                 .id(response.id())
                 .userId(response.userId())
                 .title(response.title())
@@ -24,8 +24,8 @@ public class JsonPlaceholderMapper {
                 .build();
     }
 
-    public Comment toComment(CommentResponse response) {
-        return Comment.builder()
+    public CommentDto toCommentDto(CommentResponse response) {
+        return CommentDto.builder()
                 .id(response.id())
                 .postId(response.postId())
                 .name(response.name())
@@ -34,8 +34,8 @@ public class JsonPlaceholderMapper {
                 .build();
     }
 
-    public User toUser(UserResponse response) {
-        return User.builder()
+    public UserDto toUserDto(UserResponse response) {
+        return UserDto.builder()
                 .id(response.id())
                 .name(response.name())
                 .username(response.username())
@@ -45,7 +45,7 @@ public class JsonPlaceholderMapper {
                 .build();
     }
 
-    public PostRequest toPostRequest(Post post) {
+    public PostRequest toPostRequest(PostDto post) {
         return new PostRequest(post.getUserId(), post.getTitle(), post.getBody());
     }
 }
