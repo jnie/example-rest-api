@@ -21,8 +21,15 @@ cd "$SAVED" >/dev/null
 APP_NAME="Maven"
 APP_BASE_NAME=`basename "$0"`
 
+# Helper function to concat lines in a file (must be defined before use)
+concat_lines() {
+    if [ -f "$1" ]; then
+        cat "$1" | tr -s '\n' ' '
+    fi
+}
+
 # Add default JVM options
-DEFAULT_JVM_OPTS='"-Xmx64m" "-Xms64m"'
+DEFAULT_JVM_OPTS="-Xmx64m -Xms64m"
 
 # Get Java command
 if [ -n "$JAVA_HOME" ]; then
@@ -46,6 +53,9 @@ fi
 MAVEN_PROJECTBASEDIR="${MAVEN_BASEDIR:-$(dirname "$0")}"
 MAVEN_OPTS="$(concat_lines "$MAVEN_PROJECTBASEDIR/.mvn/jvm.config") $MAVEN_OPTS"
 
+# Set maven.multiModuleProjectDirectory for Maven Wrapper 3.x
+MAVEN_OPTS="$MAVEN_OPTS -Dmaven.multiModuleProjectDirectory=$MAVEN_PROJECTBASEDIR"
+
 exec "$JAVACMD" \
     $DEFAULT_JVM_OPTS \
     $MAVEN_OPTS \
@@ -53,10 +63,3 @@ exec "$JAVACMD" \
     -classpath "$MAVEN_PROJECTBASEDIR/.mvn/wrapper/maven-wrapper.jar" \
     org.apache.maven.wrapper.MavenWrapperMain \
     "$@"
-
-# Helper function to concat lines in a file
-concat_lines() {
-    if [ -f "$1" ]; then
-        cat "$1" | tr -s '\n' ' '
-    fi
-}
