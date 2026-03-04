@@ -21,17 +21,8 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Verify Maven wrapper
-        run: |
-          ls -la .mvn/wrapper/
-          ls -la mvnw
-
       - name: Build with Maven
-        run: |
-          chmod +x ./mvnw
-          ./mvnw clean install -DskipTests
+        run: mvn clean install -DskipTests
 
       - name: Run tests
-        run: |
-          chmod +x ./mvnw
-          ./mvnw test
+        run: mvn test
