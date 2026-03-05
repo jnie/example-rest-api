@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>dk.jnie.example</groupId>
+        <artifactId>example-rest-api</artifactId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>application</artifactId>
+    <description>Spring Boot application module - wires everything together</description>
+    <packaging>jar</packaging>
+
+    <dependencies>
+        <!-- Domain module -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>domain</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- Inbound module -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>inbound</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- Outbound module -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>outbound</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <!-- Repository module -->
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>repository</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+    </dependencies>
+</project>
