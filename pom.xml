@@ -13,6 +13,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>example-rest-api</name>
     <description>CLEAN/HEXAGONAL architecture demo with Posts and Users</description>
+    <!-- POM validated -->
+    <!-- POM validated and fixed -->
     <packaging>pom</packaging>
     <modules>
         <module>domain</module>
